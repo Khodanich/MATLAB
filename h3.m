@@ -1,17 +1,18 @@
-mu = 0.2;
+mu = 0.02;
 M = 5;  %порядок фильтра
-I = 1000;%
+I = 10000;%
 Input = zeros(1,I);
 Desired = zeros(1,I);
 
 W = zeros(1,M);
-X = zeros(1,M);
+X = zeros(1,M); 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 H = [0.0625, 0.125, 0.5, 0.25, 1];
 
 for i = 1:I
     Input = rand(1 , I);    
 end
+
 for i = 1:I
     for j = 1:M
         if ((i - j) > 0)
@@ -22,9 +23,9 @@ end
 
 for T = 1:I
     
-    for m = T:-1:(T-M)  % подумать над диапазоном значений
-        if (m >= 0)
-           X(M + (m - T)) = Input(m);         
+    for m = T:-1:(T - M)
+        if (m >= 1)
+           X(M + (m - T) + 1) = Input(m);         
         else break;
         end
     end
@@ -36,9 +37,22 @@ for T = 1:I
     end   
     
     E = D - Y;  %ошибка
-    
+    Error(T) = E;
     for i = 1:M
         W(i) = W(i) + mu*E*X(i); %обновление весового коэффициента
     end    
 end
-plot(1:I,E);
+plot(1:I,Error);
+%plot(1:I,Desired);
+
+
+
+
+
+
+
+
+
+
+
+
