@@ -1,10 +1,10 @@
-mu = 0.02;
+mu = 0.01;
 %M = 5;  %порядок фильтра
 M = 5;
 I = 10000;%
 Input = zeros(1,I);
 Desired = zeros(1,I);
-
+%NoiseDb = 100;
 w0=0.001;  phi=0.1;
 
 W = zeros(1,M);
@@ -20,8 +20,8 @@ H = fliplr(MainFilt);
 % for i = 1:I
 %     Input = rand(1 ,I);  
 % end
-
-Input = sin(2*pi*[1:I]*w0+phi) + rand(1,I);
+Input1 = sin(2*pi*[1:I]*w0+phi);
+Input = sin(2*pi*[1:I]*w0+phi) + 2*rand(1,I);
 
 for i = 1:I
     for j = 1:M
